@@ -23,7 +23,9 @@ cd backend
 py -3.13 -m venv .venv
 .venv\Scripts\pip install -r requirements.txt
 copy .env.example .env          # fill in GEMINI_API_KEY
-.venv\Scripts\python -m scripts.download_sources
+.venv\Scripts\python -m scripts.download_sources   # official PDFs -> data/raw/
+.venv\Scripts\python -m src.ingest.parse           # -> data/processed/sections.jsonl, definitions.jsonl
+.venv\Scripts\python -m pytest
 ```
 
 ### Frontend

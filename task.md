@@ -93,13 +93,19 @@ Estimated total: **~4 weeks at 2–3 hrs/day.** Each phase ends with something t
   - `backend/` (Python): `data/`, `src/ingest`, `src/retrieval`, `src/tools`, `src/generation`, `src/api`, `evals/`, `tests/`, `scripts/`
   - `frontend/` (Next.js 16 + TypeScript + Tailwind, dependencies installed)
 
-### Phase 1 — Parse the law into structure (Day 3–5)
-- [ ] Extract text from the PDFs (`pymupdf`) and remove headers, footers and page numbers.
-- [ ] Split each document into its **hierarchy**: Code → Chapter → Section → Sub-section. Store the section number and title as metadata, e.g. `{"code": "Social Security", "section": "53", "title": "Payment of gratuity", "type": "new"}`.
-- [ ] Build a **definitions table** from each code's definitions section (usually Section 2), mapping each term to its definition and source.
+### Phase 1 — Parse the law into structure (Day 3–5) ✅ done 2026-10-30 (except old-act mapping)
+- [x] Extract text from the PDFs (`pymupdf`) and remove headers, footers and page numbers.
+  - Also removes the Hindi halves of the rules, the gazette mastheads and the margin cross-references, and fixes odd quote glyphs and ligatures.
+- [x] Split each document into its **hierarchy**: Code → Chapter → (Part) → Section → Sub-section. Store the section number and title as metadata.
+  - Codes: titles come from the margin notes, matched by position. Rules: titles come from the inline headings. Schedules are separate records; forms are left out.
+  - Result: **863 records**. Section counts match the official texts (Wages 69, IR 104, SS 164, OSH 143; rules 54 / 50 / 69 / 186). Only 1 of 954 sections/rules is untitled (SS Rules r.63, which has no title in the original).
+- [x] Build a **definitions table** from each code's definitions section (usually Section 2), mapping each term to its definition and source.
+  - **288 definitions**, e.g. `Wages Code §2(y)` "wages", `SS Code §2(35)` "gig worker".
 - [ ] Map **old act sections to new code sections** for the key topics: gratuity, minimum wage, bonus, overtime, working hours, layoffs. Start with about 20 mappings done by hand.
-- [ ] Save as JSONL, one record per section.
-- **Done when:** you can look up any section by number and its text is clean.
+  - **Blocked** until the old Acts are downloaded (India Code is unreachable by script; see `SOURCES.md`).
+- [x] Save as JSONL, one record per section: `data/processed/sections.jsonl` and `definitions.jsonl`. Run `python -m src.ingest.parse`.
+- [x] Tests: `tests/test_parse.py` (27 tests: parsing rules and checks on the real output). Run `python -m pytest`.
+- **Done when:** you can look up any section by number and its text is clean. ✅
 
 ### Phase 2 — Baseline RAG, the simple version (Day 6–7)
 - [ ] Fixed-size chunking (e.g. 500 tokens with 50 overlap), **ignoring** the structure from Phase 1.

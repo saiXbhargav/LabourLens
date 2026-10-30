@@ -3,6 +3,7 @@ pymupdf>=1.26
 requests>=2.32
 truststore>=0.10
 python-dotenv>=1.0
+pytest>=8
 
 # Later phases (uncomment as we reach them)
 # sentence-transformers
@@ -12,4 +13,3 @@ python-dotenv>=1.0
 # fastapi
 # uvicorn[standard]
 # wandb
-# pytest

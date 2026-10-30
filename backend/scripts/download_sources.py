@@ -1,6 +1,10 @@
 """Download the official source PDFs listed in data/sources.json into data/raw/
 and write data/SOURCES.md with checksums.
 
+Sources marked "manual" are tried automatically, but if the site is unreachable
+(India Code often is) the script prints where to save a browser download instead
+of failing.
+
 Usage (from backend/):
     python -m scripts.download_sources          # download missing files
     python -m scripts.download_sources --force  # re-download everything
@@ -55,7 +59,7 @@ def contains_title(pdf: Path, expected: str) -> bool:
     return norm(expected) in text
 
 
-def write_sources_md(manifest: dict, rows: list[dict]) -> None:
+def write_sources_md(manifest: dict, rows: list[dict], missing: list[dict]) -> None:
     lines = [
         "# Sources",
         "",
@@ -76,9 +80,12 @@ def write_sources_md(manifest: dict, rows: list[dict]) -> None:
     if notes:
         lines += ["", "## Parsing notes", ""]
         lines += [f"- `{r['id']}`: {r['notes']}" for r in notes]
-    if manifest.get("todo_manual"):
+    if missing:
         lines += ["", "## Still to collect (manual download)", ""]
-        lines += [f"- [ ] **{t['title']}**: {t['where']}" for t in manifest["todo_manual"]]
+        lines += [
+            f"- [ ] **{m['title']}**: download from {m['url']} and save as `data/raw/{m['id']}.pdf`"
+            for m in missing
+        ]
     SOURCES_MD.write_text("\n".join(lines) + "\n", encoding="utf-8")
 
 
@@ -90,14 +97,19 @@ def main() -> int:
     manifest = json.loads(MANIFEST.read_text(encoding="utf-8"))
     RAW.mkdir(parents=True, exist_ok=True)
 
-    rows, failures = [], []
+    rows, failures, missing = [], [], []
     for src in manifest["sources"]:
         path = RAW / f"{src['id']}.pdf"
         print(f"- {src['id']}")
         if args.force or not path.exists():
             try:
-                path.write_bytes(fetch(src["url"]))
+                path.write_bytes(fetch(src["url"], retries=1 if src.get("manual") else 3))
             except Exception as e:
+                if src.get("manual") and not path.exists():
+                    print(f"   MANUAL: could not fetch ({e.__class__.__name__}).")
+                    print(f"   Download from {src['url']} and save as {path.relative_to(BACKEND)}")
+                    missing.append(src)
+                    continue
                 print(f"   FAILED: {e}")
                 failures.append(src["id"])
                 continue
@@ -111,8 +123,11 @@ def main() -> int:
         print(f"   ok: {pages} pages, {path.stat().st_size // 1024} KB")
         rows.append({**src, "pages": pages, "sha256": sha})
 
-    write_sources_md(manifest, rows)
-    print(f"\n{len(rows)} ok, {len(failures)} failed. Wrote {SOURCES_MD.relative_to(BACKEND)}")
+    write_sources_md(manifest, rows, missing)
+    print(
+        f"\n{len(rows)} ok, {len(missing)} need manual download, {len(failures)} failed. "
+        f"Wrote {SOURCES_MD.relative_to(BACKEND)}"
+    )
     return 1 if failures else 0
 
 
