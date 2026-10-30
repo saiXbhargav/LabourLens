@@ -1,0 +1,37 @@
+# LabourLens
+
+A "know your rights" assistant for India's four new Labour Codes. It answers questions with section-level citations, runs gratuity and overtime calculations through tools, and is measured against a hand-checked evaluation set.
+
+> 🚧 Work in progress. See [task.md](task.md) for the full plan.
+
+## Repo layout
+
+```
+backend/            Python: ingestion, retrieval, tools, generation, API, evals
+  data/sources.json   list of official source documents
+  data/SOURCES.md     generated: what was downloaded, checksums, corpus date
+  scripts/            one-off scripts (e.g. download_sources.py)
+frontend/           Next.js (App Router, TypeScript, Tailwind)
+task.md             project plan
+```
+
+## Setup
+
+### Backend
+```powershell
+cd backend
+py -3.13 -m venv .venv
+.venv\Scripts\pip install -r requirements.txt
+copy .env.example .env          # fill in GEMINI_API_KEY
+.venv\Scripts\python -m scripts.download_sources
+```
+
+### Frontend
+```powershell
+cd frontend
+npm install
+npm run dev
+```
+
+## Disclaimer
+LabourLens is for information only and is not legal advice. It covers central law only; state rules may differ.

@@ -1,0 +1,113 @@
+{
+  "corpus_as_of": "2026-10-30",
+  "scope": "Central labour codes + central rules (Government of India). State rules are out of scope for v1.",
+  "sources": [
+    {
+      "id": "code_on_wages_2019",
+      "kind": "code",
+      "title": "The Code on Wages, 2019",
+      "citation": "Act No. 29 of 2019, assent 8 Aug 2019; in force 21 Nov 2025",
+      "publisher": "Gazette of India (eGazette)",
+      "url": "https://egazette.gov.in/WriteReadData/2019/210356.pdf",
+      "expect": "Code on Wages, 2019"
+    },
+    {
+      "id": "industrial_relations_code_2020",
+      "kind": "code",
+      "title": "The Industrial Relations Code, 2020",
+      "citation": "Act No. 35 of 2020, assent 28 Sep 2020; in force 21 Nov 2025",
+      "publisher": "PRS Legislative Research (copy of enacted text)",
+      "url": "https://prsindia.org/files/bills_acts/acts_parliament/2020/Industrial%20Relations%20Code,%202020.pdf",
+      "expect": "Industrial Relations Code, 2020"
+    },
+    {
+      "id": "social_security_code_2020",
+      "kind": "code",
+      "title": "The Code on Social Security, 2020",
+      "citation": "Act No. 36 of 2020, assent 28 Sep 2020; in force 21 Nov 2025",
+      "publisher": "PRS Legislative Research (copy of enacted text)",
+      "url": "https://prsindia.org/files/bills_acts/acts_parliament/2020/Code%20On%20Social%20Security,%202020.pdf",
+      "expect": "Code on Social Security, 2020"
+    },
+    {
+      "id": "osh_code_2020",
+      "kind": "code",
+      "title": "The Occupational Safety, Health and Working Conditions Code, 2020",
+      "citation": "Act No. 37 of 2020, assent 28 Sep 2020; in force 21 Nov 2025",
+      "publisher": "PRS Legislative Research (copy of enacted text)",
+      "url": "https://prsindia.org/files/bills_acts/acts_parliament/2020/Occupational%20Safety,%20Health%20And%20Working%20Conditions%20Code,%202020.pdf",
+      "expect": "Occupational Safety, Health and Working Conditions Code, 2020"
+    },
+    {
+      "id": "wages_central_rules_2026",
+      "kind": "rules",
+      "title": "The Code on Wages (Central) Rules, 2026",
+      "citation": "G.S.R. 343(E), 8 May 2026",
+      "publisher": "Gazette of India (eGazette)",
+      "url": "https://egazette.gov.in/WriteReadData/2026/272365.pdf",
+      "expect": "Code on Wages (Central) Rules, 2026",
+      "notes": "Bilingual: Hindi first, English text starts around page 38."
+    },
+    {
+      "id": "ir_central_rules_2026",
+      "kind": "rules",
+      "title": "The Industrial Relations (Central) Rules, 2026",
+      "citation": "G.S.R. 342(E), 8 May 2026",
+      "publisher": "Gazette of India (eGazette)",
+      "url": "https://egazette.gov.in/WriteReadData/2026/272336.pdf",
+      "expect": "Industrial Relations (Central) Rules, 2026",
+      "notes": "Bilingual: Hindi first, then English."
+    },
+    {
+      "id": "ss_central_rules_2026",
+      "kind": "rules",
+      "title": "The Social Security (Central) Rules, 2026",
+      "citation": "G.S.R. 344(E), 8 May 2026",
+      "publisher": "Gazette of India (eGazette)",
+      "url": "https://egazette.gov.in/WriteReadData/2026/272366.pdf",
+      "expect": "Social Security (Central) Rules, 2026",
+      "notes": "Bilingual: Hindi first, English text starts around page 134."
+    },
+    {
+      "id": "osh_central_rules_2026",
+      "kind": "rules",
+      "title": "The Occupational Safety, Health and Working Conditions (Central) Rules, 2026",
+      "citation": "G.S.R. 345(E), 8 May 2026",
+      "publisher": "Gazette of India (eGazette)",
+      "url": "https://egazette.gov.in/WriteReadData/2026/272379.pdf",
+      "expect": "Occupational Safety, Health and Working Conditions (Central) Rules, 2026",
+      "notes": "Bilingual: Hindi first, then English."
+    },
+    {
+      "id": "pib_labour_codes_explainer_2025",
+      "kind": "explainer",
+      "title": "PIB backgrounder on implementation of the four Labour Codes",
+      "citation": "Press Information Bureau, 21 Nov 2025",
+      "publisher": "Press Information Bureau, Government of India",
+      "url": "https://static.pib.gov.in/WriteReadData/specificdocs/documents/2025/nov/doc20251121701501.pdf",
+      "expect": "Labour Code"
+    }
+  ],
+  "todo_manual": [
+    {
+      "id": "payment_of_gratuity_act_1972",
+      "title": "The Payment of Gratuity Act, 1972 (old law, for old-vs-new comparisons)",
+      "where": "indiacode.nic.in (search the Act name, download the PDF in a browser; automated access is unreliable)"
+    },
+    {
+      "id": "minimum_wages_act_1948",
+      "title": "The Minimum Wages Act, 1948",
+      "where": "indiacode.nic.in"
+    },
+    {
+      "id": "payment_of_bonus_act_1965",
+      "title": "The Payment of Bonus Act, 1965",
+      "where": "indiacode.nic.in"
+    },
+    {
+      "id": "payment_of_wages_act_1936",
+      "title": "The Payment of Wages Act, 1936",
+      "where": "indiacode.nic.in"
+    }
+  ]
+}

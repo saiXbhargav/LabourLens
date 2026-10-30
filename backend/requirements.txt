@@ -1,0 +1,15 @@
+# Phase 0-1: ingestion
+pymupdf>=1.26
+requests>=2.32
+truststore>=0.10
+python-dotenv>=1.0
+
+# Later phases (uncomment as we reach them)
+# sentence-transformers
+# qdrant-client
+# rank-bm25
+# google-genai
+# fastapi
+# uvicorn[standard]
+# wandb
+# pytest
