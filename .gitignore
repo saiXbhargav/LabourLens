@@ -11,6 +11,7 @@ __pycache__/
 # Data: raw PDFs are re-downloadable with scripts/download_sources.py
 backend/data/raw/
 backend/data/processed/
+backend/data/qdrant/
 
 # Experiment tracking / caches
 wandb/

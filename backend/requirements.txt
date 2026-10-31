@@ -5,11 +5,13 @@ truststore>=0.10
 python-dotenv>=1.0
 pytest>=8
 
+# Phase 2: baseline RAG
+sentence-transformers>=5
+qdrant-client>=1.12
+google-genai>=1.0
+
 # Later phases (uncomment as we reach them)
-# sentence-transformers
-# qdrant-client
 # rank-bm25
-# google-genai
 # fastapi
 # uvicorn[standard]
 # wandb
