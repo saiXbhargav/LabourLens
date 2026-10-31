@@ -107,11 +107,22 @@ Estimated total: **~4 weeks at 2–3 hrs/day.** Each phase ends with something t
 - [x] Tests: `tests/test_parse.py` (27 tests: parsing rules and checks on the real output). Run `python -m pytest`.
 - **Done when:** you can look up any section by number and its text is clean. ✅
 
-### Phase 2 — Baseline RAG, the simple version (Day 6–7)
-- [ ] Fixed-size chunking (e.g. 500 tokens with 50 overlap), **ignoring** the structure from Phase 1.
-- [ ] Embed with a small open model (`bge-small`), store in Qdrant, retrieve the top-5 chunks and send them to the LLM.
-- [ ] **Don't optimise yet.** This is the "before" number.
-- **Done when:** you can ask a question from the command line and get an answer.
+### Phase 2 — Baseline RAG, the simple version (Day 6–7) ✅ done 2026-10-31
+- [x] Fixed-size chunking (e.g. 500 tokens with 50 overlap), **ignoring** the structure from Phase 1.
+  - 863 sections → **683 chunks** of 500 tokens. Each chunk still records which sections it overlaps, for scoring retrieval in Phase 4.
+- [x] Embed with a small open model (`bge-small`), store in Qdrant, retrieve the top-5 chunks and send them to the LLM.
+  - `BAAI/bge-small-en-v1.5` (384-d). Qdrant in **local mode** (`data/qdrant`, no server) behind a `VectorStore` interface, so the database can be swapped later.
+  - LLM: Gemini **Flash-Lite** (~1.5 s per answer), with Flash as fallback. Flash was overloaded (503/504) during testing.
+  - Embedding all chunks takes ~5 min on CPU. Vectors are saved to `vectors_baseline.npy`.
+- [x] **Don't optimise yet.** This is the "before" number.
+- [x] Tests: `tests/test_retrieval.py` (chunking, store, pipeline with fakes). 38 tests total.
+- **Done when:** you can ask a question from the command line and get an answer. ✅
+  - `python -m src.ask "Am I eligible for gratuity on a one year fixed-term contract?"` gives a correct answer citing SS Rules r.33.
+- **Baseline weaknesses already visible (to measure in Phase 4 and fix in Phase 5):**
+  - Chunks span 4–5 sections, so citations are vague ("Wages Rules r.6–r.10").
+  - The same rule can fill several of the 5 slots.
+  - The PIB explainer is cited next to the actual law.
+- **Notes for slow networks:** `python -m scripts.fetch_model` downloads the embedding model through a mirror and checks it against huggingface.co's hashes. After that, set `HF_HUB_OFFLINE=1`.
 
 ### Phase 3 — Build the evaluation dataset (Day 8–10) ⭐ most important phase
 - [ ] Write about 120 questions, each with the **correct answer** and the **sections that support it**. Mix these types:
@@ -126,8 +137,21 @@ Estimated total: **~4 weeks at 2–3 hrs/day.** Each phase ends with something t
   | Everyday wording | "can my company cut my PF?" | 15 |
   | **Out of scope / unanswerable** | "Telangana minimum wage for drivers?" (state rule) | 15 |
 
-- [ ] Use an LLM to **draft** questions if you want, but **check every answer against the official text yourself.**
-- [ ] For calculation questions, work out the expected numbers by hand using the formulas **from the official text**.
+- [x] Use an LLM to **draft** questions if you want, but **check every answer against the official text yourself.**
+  - `python -m evals.draft_questions` drafts 90 questions with Gemini from chosen sections: 50 single-section (precise and everyday wording alternating), 15 multi-section pairs, 15 definitions, 10 "what changed" from the PIB explainer.
+  - Every draft must include a **verbatim quote** from its gold section. `evals/dataset.py` checks the quote and rejects questions that give away the section number.
+  - An **AI pre-check** read every draft against the full section text. It corrected 7 drafts (e.g. "lay off" used where the section is about retrenchment; a government power stated as a direct right) and recommends rejecting 6 (4 duplicates, 1 ambiguous provision, 1 bad quote). Each draft shows its note in the review tool.
+  - "Old vs new" became **"what changed"**, sourced from the PIB explainer, because the old Acts couldn't be downloaded.
+- [x] For calculation questions, work out the expected numbers by hand using the formulas **from the official text**.
+  - 17 calculations in `evals/handwritten.jsonl`: gratuity (÷26×15 rule, the more-than-6-months rounding, seasonal), the 50% wages rule, overtime, bonus min/max, lay-off, retrenchment, annual leave and closure cap. Plus 15 out-of-scope questions, each checked to be absent from the corpus.
+- [ ] **YOUR TURN: review every question** (about 1–2 hours). This is what makes "hand-checked" true on your resume:
+  ```
+  cd backend
+  .venv\Scripts\python -m evals.review            # a=accept r=reject q/w=edit t=full text x=exit
+  .venv\Scripts\python -m evals.review --status   # progress
+  .venv\Scripts\python -m evals.review --export   # writes evals/golden_set.jsonl
+  ```
+  - 122 candidates; the pre-check recommends 116 to accept. Decisions save immediately, so you can stop and continue later.
 - [ ] Freeze it as `evals/golden_set.jsonl`. Don't change it once experiments start.
 - **Done when:** you have a versioned test set that you trust.
 

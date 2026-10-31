@@ -25,7 +25,17 @@ py -3.13 -m venv .venv
 copy .env.example .env          # fill in GEMINI_API_KEY
 .venv\Scripts\python -m scripts.download_sources   # official PDFs -> data/raw/
 .venv\Scripts\python -m src.ingest.parse           # -> data/processed/sections.jsonl, definitions.jsonl
+.venv\Scripts\python -m scripts.fetch_model        # embedding model (only if huggingface.co is slow for you)
+.venv\Scripts\python -m src.retrieval.index        # chunk + embed + store in Qdrant (local, data/qdrant)
+.venv\Scripts\python -m src.ask "Am I eligible for gratuity on a fixed-term contract?"
 .venv\Scripts\python -m pytest
+```
+
+### Evaluation set
+```powershell
+.venv\Scripts\python -m evals.draft_questions   # LLM-drafted candidates -> evals/drafts.jsonl
+.venv\Scripts\python -m evals.review            # human review, one question at a time
+.venv\Scripts\python -m evals.review --export   # -> evals/golden_set.jsonl
 ```
 
 ### Frontend
