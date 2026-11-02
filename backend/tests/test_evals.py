@@ -1,6 +1,6 @@
 import pytest
 
-from evals.dataset import GOLDEN, HANDWRITTEN, normalize, read_jsonl, validate
+from evals.dataset import DRAFTS, GOLDEN, HANDWRITTEN, item_hash, normalize, read_jsonl, validate
 from src.config import PROCESSED
 
 SECTIONS = {"x:s1": {"id": "x:s1", "text": "The employer shall pay gratuity at the rate of fifteen days’ wages."}}
@@ -25,6 +25,19 @@ def test_invented_quote_is_rejected():
     assert "quote not found verbatim in the gold sections" in validate(item(quote="thirty days' wages"), SECTIONS)
 
 
+def test_every_quote_must_be_found():
+    two = item(quotes=["rate of fifteen days' wages", "thirty days' wages"])
+    del two["quote"]
+    assert validate(two, SECTIONS) == ["quote 2 not found verbatim in the gold sections"]
+
+
+def test_item_hash_tracks_reviewed_content_only():
+    base = item()
+    assert item_hash(base) == item_hash({**base, "ai_note": "changed note"})  # notes don't matter
+    assert item_hash(base) != item_hash({**base, "answer": "Different answer."})
+    assert item_hash(base) != item_hash({**base, "quotes": ["rate of fifteen days' wages", "employer shall pay"]})
+
+
 def test_unknown_gold_section_is_rejected():
     assert any("unknown gold sections" in p for p in validate(item(gold_sections=["x:s9"]), SECTIONS))
 
@@ -43,13 +56,15 @@ needs_corpus = pytest.mark.skipif(not (PROCESSED / "sections.jsonl").exists(), r
 
 
 @needs_corpus
-@pytest.mark.parametrize("path", [HANDWRITTEN, GOLDEN], ids=["handwritten", "golden"])
+@pytest.mark.parametrize("path", [HANDWRITTEN, DRAFTS, GOLDEN], ids=["handwritten", "drafts", "golden"])
 def test_dataset_files_pass_validation(path):
     from evals.dataset import load_sections
 
     rows = read_jsonl(path)
     if not rows:
         pytest.skip(f"{path.name} not created yet")
+    if path == DRAFTS:  # drafts recommended for rejection may legitimately fail
+        rows = [r for r in rows if r.get("ai_recommendation") != "reject"]
     sections = load_sections()
     assert {r["id"]: validate(r, sections) for r in rows if validate(r, sections)} == {}
     assert len({r["id"] for r in rows}) == len(rows), "duplicate ids"

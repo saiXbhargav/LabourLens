@@ -28,6 +28,7 @@ class GeminiLLM:
         self.models = models or GEMINI_MODELS
         self.temperature = temperature
         self.retries = retries
+        self.last_usage: dict = {}  # token counts of the most recent successful call
 
     def generate(self, prompt: str, system: str | None = None, json_mode: bool = False) -> tuple[str, str]:
         from google.genai import types
@@ -42,6 +43,12 @@ class GeminiLLM:
             for attempt in range(self.retries + 1):
                 try:
                     resp = self.client.models.generate_content(model=model, contents=prompt, config=config)
+                    u = resp.usage_metadata
+                    self.last_usage = {
+                        "prompt_tokens": getattr(u, "prompt_token_count", None),
+                        "output_tokens": getattr(u, "candidates_token_count", None),
+                        "thinking_tokens": getattr(u, "thoughts_token_count", None),
+                    }
                     return (resp.text or "").strip(), resp.model_version or model
                 except Exception as e:
                     code = getattr(e, "code", None)

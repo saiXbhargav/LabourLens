@@ -1,0 +1,100 @@
+{
+  "name": "baseline",
+  "description": "Fixed 500-token chunks (50 overlap), bge-small, dense only, top-5",
+  "run_at": "2026-11-02T12:23:49",
+  "dataset": "5f25eb89",
+  "n_questions": 117,
+  "n_answerable": 102,
+  "n_unanswerable": 15,
+  "config": {
+    "name": "baseline",
+    "description": "Fixed 500-token chunks (50 overlap), bge-small, dense only, top-5",
+    "collection": "baseline",
+    "top_k": 5,
+    "retrieval_depth": 10,
+    "generator_models": [
+      "gemini-flash-lite-latest",
+      "gemini-flash-latest"
+    ],
+    "judge_models": [
+      "gemini-flash-latest",
+      "gemini-flash-lite-latest"
+    ],
+    "min_seconds_between_calls": 4
+  },
+  "partial": false,
+  "retrieval": {
+    "hit@1": 0.4411764705882353,
+    "hit@3": 0.6176470588235294,
+    "hit@5": 0.6862745098039216,
+    "hit@10": 0.8431372549019608,
+    "recall@5": 0.6568627450980392,
+    "mrr@10": 0.5609165888577653
+  },
+  "answers": {
+    "accuracy": 0.5490196078431373,
+    "correctness": 0.6078431372549019,
+    "faithful": 0.9509803921568627,
+    "calc_match": 0.1875,
+    "refusal_accuracy": 1.0,
+    "cites_gold": 0.6274509803921569,
+    "invalid_citation": 0.0,
+    "no_citation": 0.16666666666666666,
+    "over_refusal": 0.29411764705882354,
+    "judge_errors": 0
+  },
+  "latency_ms": {
+    "retrieve_p50": 89.51459999661893,
+    "generate_p50": 1724.0813999960665,
+    "generate_p95": 6153.918399999384
+  },
+  "tokens": {
+    "prompt": 328473,
+    "output": 7729
+  },
+  "by_type": {
+    "calculation": {
+      "n": 17,
+      "hit@5": 0.7058823529411765,
+      "accuracy": 0.17647058823529413,
+      "refusal_accuracy": null
+    },
+    "definition": {
+      "n": 15,
+      "hit@5": 0.5333333333333333,
+      "accuracy": 0.5333333333333333,
+      "refusal_accuracy": null
+    },
+    "everyday": {
+      "n": 25,
+      "hit@5": 0.56,
+      "accuracy": 0.48,
+      "refusal_accuracy": null
+    },
+    "multi_section": {
+      "n": 11,
+      "hit@5": 1.0,
+      "accuracy": 0.7272727272727273,
+      "refusal_accuracy": null
+    },
+    "out_of_scope": {
+      "n": 15,
+      "hit@5": null,
+      "accuracy": null,
+      "refusal_accuracy": 1.0
+    },
+    "rule": {
+      "n": 26,
+      "hit@5": 0.8846153846153846,
+      "accuracy": 0.7692307692307693,
+      "refusal_accuracy": null
+    },
+    "what_changed": {
+      "n": 8,
+      "hit@5": 0.25,
+      "accuracy": 0.625,
+      "refusal_accuracy": null
+    }
+  },
+  "errors": 0
+}

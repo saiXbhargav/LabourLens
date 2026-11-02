@@ -1,0 +1,10 @@
+# Phase 2 baseline: fixed 500-token chunks, bge-small, dense retrieval only, top-5 to the LLM.
+name: baseline
+description: Fixed 500-token chunks (50 overlap), bge-small, dense only, top-5
+collection: baseline        # built by: python -m src.retrieval.index
+top_k: 5                    # passages given to the LLM
+retrieval_depth: 10         # passages retrieved for retrieval metrics (Hit@10, MRR@10)
+generator_models: [gemini-flash-lite-latest, gemini-flash-latest]
+# The judge uses the stronger model first (and a different one from the generator where possible).
+judge_models: [gemini-flash-latest, gemini-flash-lite-latest]
+min_seconds_between_calls: 4   # free-tier rate limits; cached calls are not delayed

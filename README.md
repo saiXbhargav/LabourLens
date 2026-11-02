@@ -36,7 +36,11 @@ copy .env.example .env          # fill in GEMINI_API_KEY
 .venv\Scripts\python -m evals.draft_questions   # LLM-drafted candidates -> evals/drafts.jsonl
 .venv\Scripts\python -m evals.review            # human review, one question at a time
 .venv\Scripts\python -m evals.review --export   # -> evals/golden_set.jsonl
+.venv\Scripts\python -m evals.run --config evals/configs/baseline.yaml   # -> evals/results/RESULTS.md
+.venv\Scripts\python -m evals.spotcheck baseline   # blind-grade ~30 answers to check the LLM judge
 ```
+
+Results: [backend/evals/results/RESULTS.md](backend/evals/results/RESULTS.md)
 
 ### Frontend
 ```powershell

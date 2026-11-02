@@ -1,7 +1,9 @@
 """Review candidate questions one by one and build the golden set.
 
 Candidates = evals/handwritten.jsonl + evals/drafts.jsonl. Every decision is saved
-immediately to evals/reviews.jsonl, so you can stop (q) and continue later.
+immediately to evals/reviews.jsonl, so you can stop (x) and continue later. A decision
+records the version of the question it was made on (item_hash); if the question is
+changed afterwards, the decision lapses and the question is pending again.
 
 Usage (from backend/):
     python -m evals.review              # review everything not yet decided
@@ -9,10 +11,13 @@ Usage (from backend/):
     python -m evals.review --status     # counts by type and decision
     python -m evals.review --export     # write evals/golden_set.jsonl from accepted questions
 
+For each question, check: is the answer legally correct? Do the quotes support EVERY claim
+in it? Is the question unambiguous and not a duplicate? Are conditions/exceptions included?
+
 Keys while reviewing:
     a  accept            r  reject (asks for a reason)     s  skip for now
     q  edit question     w  edit answer                    t  show full gold section text
-    x  quit
+    x  exit
 """
 
 from __future__ import annotations
@@ -23,7 +28,9 @@ import textwrap
 from collections import Counter
 from datetime import datetime
 
-from evals.dataset import DRAFTS, GOLDEN, HANDWRITTEN, REVIEWS, load_sections, read_jsonl, validate, write_jsonl
+from evals.dataset import (
+    DRAFTS, GOLDEN, HANDWRITTEN, REVIEWS, item_hash, item_quotes, load_sections, read_jsonl, validate, write_jsonl,
+)
 
 WIDTH = 100
 
@@ -32,8 +39,11 @@ def candidates() -> list[dict]:
     return read_jsonl(HANDWRITTEN) + read_jsonl(DRAFTS)
 
 
-def decisions() -> dict[str, dict]:
-    return {r["id"]: r for r in read_jsonl(REVIEWS)}  # last decision per id wins
+def valid_decisions(items: list[dict]) -> dict[str, dict]:
+    """Decisions that still apply: made on the current version of each question."""
+    by_id = {r["id"]: r for r in read_jsonl(REVIEWS)}  # last decision per id wins
+    return {i["id"]: by_id[i["id"]] for i in items
+            if i["id"] in by_id and by_id[i["id"]].get("base_hash") == item_hash(i)}
 
 
 def save_decision(decision: dict) -> None:
@@ -60,8 +70,9 @@ def show(item: dict, sections: dict, n: int, total: int) -> None:
     print("ANSWER:\n" + wrap(item["answer"]))
     if item.get("expected_value") is not None:
         print(f"EXPECTED VALUE: {item['expected_value']}")
-    if item.get("quote"):
-        print("QUOTE (supporting text):\n" + wrap(item["quote"]))
+    quotes = item_quotes(item)
+    for i, quote in enumerate(quotes, 1):
+        print((f"QUOTE {i}/{len(quotes)}:" if len(quotes) > 1 else "QUOTE (supporting text):") + "\n" + wrap(quote))
     for sid in item["gold_sections"]:
         s = sections.get(sid)
         print(f"GOLD: {s['label']} - {s['title']}" if s else f"GOLD: {sid} (unknown!)")
@@ -73,10 +84,10 @@ def show(item: dict, sections: dict, n: int, total: int) -> None:
 
 
 def review(items: list[dict], sections: dict) -> None:
-    done = decisions()
-    for n, item in enumerate(items, 1):
-        item = apply_edits(item, done.get(item["id"]))
-        edits: dict = dict(done.get(item["id"], {}).get("edits", {}))
+    prior = {r["id"]: r for r in read_jsonl(REVIEWS)}
+    for n, original in enumerate(items, 1):
+        item = apply_edits(original, prior.get(original["id"]))
+        edits: dict = dict(prior.get(original["id"], {}).get("edits", {}))
         while True:
             show(item, sections, n, len(items))
             prompt = "\n[a]ccept [r]eject [s]kip  edit [q]uestion / ans[w]er  [t]ext  e[x]it > "
@@ -95,8 +106,9 @@ def review(items: list[dict], sections: dict) -> None:
                     print(f"Can't accept yet: {problems}. Edit it or reject it.")
                     continue
                 reason = input("Reason for rejecting: ").strip() if key == "r" else ""
-                save_decision({"id": item["id"], "decision": "accept" if key == "a" else "reject",
-                               "reason": reason, "edits": edits, "at": datetime.now().isoformat(timespec="seconds")})
+                save_decision({"id": original["id"], "decision": "accept" if key == "a" else "reject",
+                               "reason": reason, "edits": edits, "base_hash": item_hash(original),
+                               "at": datetime.now().isoformat(timespec="seconds")})
                 break
             elif key == "s":
                 break
@@ -107,24 +119,24 @@ def review(items: list[dict], sections: dict) -> None:
 
 
 def status() -> None:
-    done = decisions()
-    rows = Counter()
-    for item in candidates():
-        d = done.get(item["id"], {}).get("decision", "pending")
-        rows[(item["type"], d)] += 1
-    types = sorted({t for t, _ in rows})
+    items = candidates()
+    done = valid_decisions(items)
+    rows = Counter((i["type"], done.get(i["id"], {}).get("decision", "pending")) for i in items)
     print(f"{'type':15} {'accept':>7} {'reject':>7} {'pending':>8}")
-    for t in types:
+    for t in sorted({t for t, _ in rows}):
         print(f"{t:15} {rows[(t, 'accept')]:>7} {rows[(t, 'reject')]:>7} {rows[(t, 'pending')]:>8}")
-    print(f"{'TOTAL':15} {sum(v for (t, d), v in rows.items() if d == 'accept'):>7} "
-          f"{sum(v for (t, d), v in rows.items() if d == 'reject'):>7} "
-          f"{sum(v for (t, d), v in rows.items() if d == 'pending'):>8}")
+    totals = Counter(d for (_, d), v in rows.items() for _ in range(v))
+    print(f"{'TOTAL':15} {totals['accept']:>7} {totals['reject']:>7} {totals['pending']:>8}")
 
 
 def export(sections: dict) -> None:
-    done = decisions()
+    items = candidates()
+    done = valid_decisions(items)
+    pending = [i["id"] for i in items if i["id"] not in done]
+    if pending:
+        print(f"Note: {len(pending)} questions are still pending and are left out: {pending[:10]}...")
     golden, errors = [], []
-    for item in candidates():
+    for item in items:
         d = done.get(item["id"])
         if not d or d["decision"] != "accept":
             continue
@@ -133,8 +145,10 @@ def export(sections: dict) -> None:
             errors.append((item["id"], problems))
             continue
         keep = ("id", "type", "question", "answer", "expected_value", "expected_behavior", "gold_sections",
-                "gold_definition", "quote", "answerable")
-        golden.append({k: item[k] for k in keep if k in item})
+                "gold_definition", "answerable")
+        row = {k: item[k] for k in keep if k in item}
+        row["quotes"] = item_quotes(item)
+        golden.append(row)
     if errors:
         raise SystemExit(f"Not exported; fix these first: {errors}")
     write_jsonl(GOLDEN, golden)
@@ -159,7 +173,7 @@ def main() -> None:
         if args.redo:
             items = [i for i in items if i["id"] == args.redo]
         else:
-            done = decisions()
+            done = valid_decisions(items)
             items = [i for i in items if i["id"] not in done]
         if not items:
             print("Nothing left to review. Run with --status or --export.")

@@ -1,0 +1,122 @@
+{"id": "calc04", "decision": "accept", "reason": "", "edits": {}, "at": "2026-11-01T16:29:11", "base_hash": "235eab32e25e"}
+{"id": "calc07", "decision": "accept", "reason": "", "edits": {}, "at": "2026-11-01T16:29:14", "base_hash": "cf01d23aff41"}
+{"id": "calc09", "decision": "accept", "reason": "", "edits": {}, "at": "2026-11-01T16:29:15", "base_hash": "e19fe360feea"}
+{"id": "calc10", "decision": "accept", "reason": "", "edits": {}, "at": "2026-11-01T16:29:15", "base_hash": "4e1353352427"}
+{"id": "calc15", "decision": "accept", "reason": "", "edits": {}, "at": "2026-11-01T16:29:18", "base_hash": "ae2f006752f0"}
+{"id": "calc16", "decision": "accept", "reason": "", "edits": {}, "at": "2026-11-01T16:29:18", "base_hash": "82c075233410"}
+{"id": "calc17", "decision": "accept", "reason": "", "edits": {}, "at": "2026-11-01T16:29:19", "base_hash": "86d37d25a2d9"}
+{"id": "oos01", "decision": "accept", "reason": "", "edits": {}, "at": "2026-11-01T16:29:19", "base_hash": "50a57c21f362"}
+{"id": "oos02", "decision": "accept", "reason": "", "edits": {}, "at": "2026-11-01T16:29:20", "base_hash": "5eaf433b78a7"}
+{"id": "oos03", "decision": "accept", "reason": "", "edits": {}, "at": "2026-11-01T16:29:20", "base_hash": "358800a4e0f1"}
+{"id": "oos04", "decision": "accept", "reason": "", "edits": {}, "at": "2026-11-01T16:29:21", "base_hash": "12f11074dbc8"}
+{"id": "oos05", "decision": "accept", "reason": "", "edits": {}, "at": "2026-11-01T16:29:21", "base_hash": "576aabf47f2b"}
+{"id": "oos06", "decision": "accept", "reason": "", "edits": {}, "at": "2026-11-01T16:29:22", "base_hash": "11e699523c3b"}
+{"id": "oos07", "decision": "accept", "reason": "", "edits": {}, "at": "2026-11-01T16:29:22", "base_hash": "0fac1e3b8d38"}
+{"id": "oos08", "decision": "accept", "reason": "", "edits": {}, "at": "2026-11-01T16:29:23", "base_hash": "f74af94403ba"}
+{"id": "oos09", "decision": "accept", "reason": "", "edits": {}, "at": "2026-11-01T16:29:23", "base_hash": "9be93f24d224"}
+{"id": "oos10", "decision": "accept", "reason": "", "edits": {}, "at": "2026-11-01T16:29:24", "base_hash": "7a0538bdbd5d"}
+{"id": "oos11", "decision": "accept", "reason": "", "edits": {}, "at": "2026-11-01T16:29:24", "base_hash": "6685a5d7d740"}
+{"id": "oos12", "decision": "accept", "reason": "", "edits": {}, "at": "2026-11-01T16:29:25", "base_hash": "013bf6a72b78"}
+{"id": "oos13", "decision": "accept", "reason": "", "edits": {}, "at": "2026-11-01T16:29:26", "base_hash": "365501a19cf8"}
+{"id": "oos14", "decision": "accept", "reason": "", "edits": {}, "at": "2026-11-01T16:29:26", "base_hash": "58c97a781acd"}
+{"id": "oos15", "decision": "accept", "reason": "", "edits": {}, "at": "2026-11-01T16:29:26", "base_hash": "267cb1fb472c"}
+{"id": "single01", "decision": "accept", "reason": "", "edits": {}, "at": "2026-11-01T16:29:27", "base_hash": "b6f1904bdbbe"}
+{"id": "single02", "decision": "accept", "reason": "", "edits": {}, "at": "2026-11-01T16:29:27", "base_hash": "244c1cd6fa09"}
+{"id": "single03", "decision": "accept", "reason": "", "edits": {}, "at": "2026-11-01T16:29:28", "base_hash": "2dc6eed2f8d5"}
+{"id": "single04", "decision": "accept", "reason": "", "edits": {}, "at": "2026-11-01T16:29:28", "base_hash": "ccaf94e3de77"}
+{"id": "single05", "decision": "accept", "reason": "", "edits": {}, "at": "2026-11-01T16:29:29", "base_hash": "9106531ec715"}
+{"id": "single07", "decision": "accept", "reason": "", "edits": {}, "at": "2026-11-01T16:29:29", "base_hash": "a3f5c50d7e96"}
+{"id": "single08", "decision": "accept", "reason": "", "edits": {}, "at": "2026-11-01T16:29:30", "base_hash": "f8588391806a"}
+{"id": "single09", "decision": "accept", "reason": "", "edits": {}, "at": "2026-11-01T16:29:30", "base_hash": "687d990d844a"}
+{"id": "single10", "decision": "accept", "reason": "", "edits": {}, "at": "2026-11-01T16:29:30", "base_hash": "321b3edd6ad3"}
+{"id": "single13", "decision": "accept", "reason": "", "edits": {}, "at": "2026-11-01T16:29:31", "base_hash": "ce32bb0157d1"}
+{"id": "single17", "decision": "accept", "reason": "", "edits": {}, "at": "2026-11-01T16:29:33", "base_hash": "c7e8bf28ab47"}
+{"id": "single19", "decision": "accept", "reason": "", "edits": {}, "at": "2026-11-01T16:29:34", "base_hash": "1c8e265b6312"}
+{"id": "single21", "decision": "accept", "reason": "", "edits": {}, "at": "2026-11-01T16:29:34", "base_hash": "3629428f87b8"}
+{"id": "single23", "decision": "accept", "reason": "", "edits": {}, "at": "2026-11-01T16:29:35", "base_hash": "c014d6da0465"}
+{"id": "single25", "decision": "accept", "reason": "", "edits": {}, "at": "2026-11-01T16:29:36", "base_hash": "b375be98a5ea"}
+{"id": "single26", "decision": "accept", "reason": "", "edits": {}, "at": "2026-11-01T16:29:36", "base_hash": "d21532f474a2"}
+{"id": "single27", "decision": "accept", "reason": "", "edits": {}, "at": "2026-11-01T16:29:36", "base_hash": "e75c4e33360c"}
+{"id": "single28", "decision": "accept", "reason": "", "edits": {}, "at": "2026-11-01T16:29:37", "base_hash": "ef010773ff85"}
+{"id": "single29", "decision": "accept", "reason": "", "edits": {}, "at": "2026-11-01T16:29:37", "base_hash": "2e84d46936d1"}
+{"id": "single30", "decision": "accept", "reason": "", "edits": {}, "at": "2026-11-01T16:29:37", "base_hash": "f4347302f5cd"}
+{"id": "single31", "decision": "accept", "reason": "", "edits": {}, "at": "2026-11-01T16:29:38", "base_hash": "3707e0db2ec2"}
+{"id": "single33", "decision": "accept", "reason": "", "edits": {}, "at": "2026-11-01T16:29:38", "base_hash": "be6e84d12233"}
+{"id": "single34", "decision": "accept", "reason": "", "edits": {}, "at": "2026-11-01T16:29:39", "base_hash": "11eb08269720"}
+{"id": "single35", "decision": "accept", "reason": "", "edits": {}, "at": "2026-11-01T16:29:39", "base_hash": "cbe9bb490e4a"}
+{"id": "single36", "decision": "accept", "reason": "", "edits": {}, "at": "2026-11-01T16:29:39", "base_hash": "0c5c94463ac2"}
+{"id": "single37", "decision": "accept", "reason": "", "edits": {}, "at": "2026-11-01T16:29:40", "base_hash": "9d84189797c5"}
+{"id": "single38", "decision": "accept", "reason": "", "edits": {}, "at": "2026-11-01T16:29:40", "base_hash": "1ee8618dfa5d"}
+{"id": "single39", "decision": "accept", "reason": "", "edits": {}, "at": "2026-11-01T16:29:41", "base_hash": "19a2b9862400"}
+{"id": "single40", "decision": "accept", "reason": "", "edits": {}, "at": "2026-11-01T16:29:41", "base_hash": "f71379c25de3"}
+{"id": "single41", "decision": "accept", "reason": "", "edits": {}, "at": "2026-11-01T16:29:41", "base_hash": "91ac191736c4"}
+{"id": "single43", "decision": "accept", "reason": "", "edits": {}, "at": "2026-11-01T16:29:42", "base_hash": "d3cd31b75fc8"}
+{"id": "single44", "decision": "accept", "reason": "", "edits": {}, "at": "2026-11-01T16:29:42", "base_hash": "7de04d9ea203"}
+{"id": "single47", "decision": "accept", "reason": "", "edits": {}, "at": "2026-11-01T16:29:44", "base_hash": "ef894e9ba3e9"}
+{"id": "single48", "decision": "accept", "reason": "", "edits": {}, "at": "2026-11-01T16:29:44", "base_hash": "4aa27dd7d8e3"}
+{"id": "single50", "decision": "accept", "reason": "", "edits": {}, "at": "2026-11-01T16:29:45", "base_hash": "bcda5b853283"}
+{"id": "multi01", "decision": "accept", "reason": "", "edits": {}, "at": "2026-11-01T16:29:45", "base_hash": "9d1c94bb27dc"}
+{"id": "multi04", "decision": "accept", "reason": "", "edits": {}, "at": "2026-11-01T16:29:46", "base_hash": "9fe4af815cf0"}
+{"id": "multi05", "decision": "accept", "reason": "", "edits": {}, "at": "2026-11-01T16:29:46", "base_hash": "ea13fd05410f"}
+{"id": "multi08", "decision": "accept", "reason": "", "edits": {}, "at": "2026-11-01T16:32:49", "base_hash": "afd08d4e1ace"}
+{"id": "multi15", "decision": "accept", "reason": "", "edits": {}, "at": "2026-11-01T16:32:51", "base_hash": "35ac97d44dea"}
+{"id": "def02", "decision": "accept", "reason": "", "edits": {}, "at": "2026-11-01T16:32:52", "base_hash": "392c8f62adc3"}
+{"id": "def03", "decision": "accept", "reason": "", "edits": {}, "at": "2026-11-01T16:32:53", "base_hash": "bc83c8adccbb"}
+{"id": "def04", "decision": "accept", "reason": "", "edits": {}, "at": "2026-11-01T16:32:53", "base_hash": "8a49b352062a"}
+{"id": "def05", "decision": "accept", "reason": "", "edits": {}, "at": "2026-11-01T16:32:53", "base_hash": "92f380bdd4ae"}
+{"id": "def07", "decision": "accept", "reason": "", "edits": {}, "at": "2026-11-01T16:32:54", "base_hash": "8ad8062d8d53"}
+{"id": "def08", "decision": "accept", "reason": "", "edits": {}, "at": "2026-11-01T16:32:54", "base_hash": "2de110d7c6aa"}
+{"id": "def10", "decision": "accept", "reason": "", "edits": {}, "at": "2026-11-01T16:32:55", "base_hash": "c4e0b0ccbed3"}
+{"id": "def14", "decision": "accept", "reason": "", "edits": {}, "at": "2026-11-01T16:32:56", "base_hash": "8349056fc662"}
+{"id": "changed03", "decision": "reject", "reason": "sffsffs", "edits": {}, "at": "2026-11-01T16:33:41", "base_hash": "862f4f64c021"}
+{"id": "changed04", "decision": "accept", "reason": "", "edits": {}, "at": "2026-11-01T16:33:44", "base_hash": "640152def6d2"}
+{"id": "changed06", "decision": "accept", "reason": "", "edits": {}, "at": "2026-11-01T16:33:45", "base_hash": "4ccb82bc1ebd"}
+{"id": "changed07", "decision": "accept", "reason": "", "edits": {}, "at": "2026-11-01T16:33:46", "base_hash": "7b59da18cc89"}
+{"id": "changed08", "decision": "accept", "reason": "", "edits": {}, "at": "2026-11-01T16:33:47", "base_hash": "25a91e8e0435"}
+{"id": "calc05", "decision": "accept", "reason": "", "edits": {}, "base_hash": "10976cb3a5e2", "at": "2026-11-01T16:41:24"}
+{"id": "calc06", "decision": "accept", "reason": "", "edits": {}, "base_hash": "ffe08a8c0ae5", "at": "2026-11-01T16:41:37"}
+{"id": "calc12", "decision": "accept", "reason": "", "edits": {}, "base_hash": "8424e3275684", "at": "2026-11-01T16:43:13"}
+{"id": "calc13", "decision": "accept", "reason": "", "edits": {}, "base_hash": "0784a2a8646b", "at": "2026-11-01T16:43:25"}
+{"id": "calc14", "decision": "accept", "reason": "", "edits": {}, "base_hash": "1238db5f7383", "at": "2026-11-01T16:43:26"}
+{"id": "single15", "decision": "accept", "reason": "", "edits": {}, "base_hash": "bfb0a52f7d3d", "at": "2026-11-01T16:43:26"}
+{"id": "single18", "decision": "accept", "reason": "", "edits": {}, "base_hash": "2bd2fdd46809", "at": "2026-11-01T16:43:27"}
+{"id": "single32", "decision": "accept", "reason": "", "edits": {}, "base_hash": "af69c1060ca6", "at": "2026-11-01T16:43:27"}
+{"id": "single42", "decision": "accept", "reason": "", "edits": {}, "base_hash": "050e1bf2f121", "at": "2026-11-01T16:43:28"}
+{"id": "multi02", "decision": "accept", "reason": "", "edits": {}, "base_hash": "1303bf77cdbe", "at": "2026-11-01T16:43:28"}
+{"id": "multi07", "decision": "accept", "reason": "", "edits": {}, "base_hash": "473af524db9b", "at": "2026-11-01T16:43:49"}
+{"id": "multi09", "decision": "accept", "reason": "", "edits": {}, "base_hash": "e08129531f4e", "at": "2026-11-01T16:43:50"}
+{"id": "def09", "decision": "accept", "reason": "", "edits": {}, "base_hash": "d865ffeeee7e", "at": "2026-11-01T16:43:52"}
+{"id": "def11", "decision": "accept", "reason": "", "edits": {}, "base_hash": "eee274bf00b9", "at": "2026-11-01T16:43:53"}
+{"id": "def15", "decision": "accept", "reason": "", "edits": {}, "base_hash": "d623177f26ea", "at": "2026-11-01T16:43:53"}
+{"id": "changed02", "decision": "accept", "reason": "", "edits": {}, "base_hash": "b4243fc8976c", "at": "2026-11-01T16:43:54"}
+{"id": "changed05", "decision": "accept", "reason": "", "edits": {}, "base_hash": "15be55bd3a0a", "at": "2026-11-01T16:43:54"}
+{"id": "calc08", "decision": "accept", "reason": "", "edits": {}, "base_hash": "b4a1ddcaf1fa", "at": "2026-11-02T11:35:38"}
+{"id": "multi03", "decision": "accept", "reason": "", "edits": {}, "base_hash": "09ace9ec33c8", "at": "2026-11-02T11:36:08"}
+{"id": "multi11", "decision": "accept", "reason": "", "edits": {}, "base_hash": "40c059570e33", "at": "2026-11-02T11:36:37"}
+{"id": "multi13", "decision": "accept", "reason": "", "edits": {}, "base_hash": "5d424ad3abd7", "at": "2026-11-02T11:36:49"}
+{"id": "def01", "decision": "accept", "reason": "", "edits": {}, "base_hash": "05bf6dee9dff", "at": "2026-11-02T11:37:02"}
+{"id": "def13", "decision": "accept", "reason": "", "edits": {}, "base_hash": "345cb79eb34a", "at": "2026-11-02T11:37:12"}
+{"id": "changed10", "decision": "reject", "reason": "The issue is not factual accuracy but dataset quality. Keeping duplicate questions reduces diversity and adds little new information.", "edits": {}, "base_hash": "bffd3b920dbb", "at": "2026-11-02T11:37:35"}
+{"id": "single06", "decision": "accept", "reason": "", "edits": {}, "base_hash": "952ae1ec7ef3", "at": "2026-11-02T12:15:57", "note": "revised per review sheet: Added the closure-of-establishment wording to the quotes."}
+{"id": "single11", "decision": "accept", "reason": "", "edits": {}, "base_hash": "12c7da0a8737", "at": "2026-11-02T12:15:57", "note": "revised per review sheet: Added the extension proviso as a quote."}
+{"id": "single12", "decision": "accept", "reason": "", "edits": {}, "base_hash": "94e7a875d211", "at": "2026-11-02T12:15:57", "note": "revised per review sheet: Answer made conditional on showing sufficient cause; added the three-year limit quote."}
+{"id": "single14", "decision": "accept", "reason": "", "edits": {}, "base_hash": "66898904a9a0", "at": "2026-11-02T12:15:57", "note": "revised per review sheet: Question rephrased: a strike already exists (no 'planning a future strike')."}
+{"id": "single16", "decision": "accept", "reason": "", "edits": {}, "base_hash": "684ba53d4b16", "at": "2026-11-02T12:15:57", "note": "revised per review sheet: Quotes now cover the one-year condition and the per-year compensation rule."}
+{"id": "single20", "decision": "accept", "reason": "", "edits": {}, "base_hash": "71a8afa0fd5b", "at": "2026-11-02T12:15:57", "note": "revised per review sheet: Added the 'or such other number of days as notified' qualification."}
+{"id": "single22", "decision": "accept", "reason": "", "edits": {}, "base_hash": "0ccec4994e3f", "at": "2026-11-02T12:15:57", "note": "revised per review sheet: Added sub-sections (3) and (4) on family nominations."}
+{"id": "single24", "decision": "accept", "reason": "", "edits": {}, "base_hash": "d23437d705d0", "at": "2026-11-02T12:15:57", "note": "revised per review sheet: Added the main insurance obligation (date, government exception) as a quote."}
+{"id": "single45", "decision": "accept", "reason": "", "edits": {}, "base_hash": "1ccbbd564195", "at": "2026-11-02T12:15:57", "note": "revised per review sheet: Added rule 48(2)(a) for gig and platform workers."}
+{"id": "single46", "decision": "accept", "reason": "", "edits": {}, "base_hash": "d15c4ca26c80", "at": "2026-11-02T12:15:57", "note": "revised per review sheet: Added the common/pooled crèche proviso."}
+{"id": "single49", "decision": "accept", "reason": "", "edits": {}, "base_hash": "0c6b5e0987ba", "at": "2026-11-02T12:15:57", "note": "revised per review sheet: Quote now includes the one-year continuous-service condition."}
+{"id": "multi12", "decision": "accept", "reason": "", "edits": {}, "base_hash": "093af3314a46", "at": "2026-11-02T12:15:57", "note": "revised per review sheet: Added the heir/nominee entitlement; dropped OSH §25 (not used by the answer), so it is now a single-section question."}
+{"id": "def06", "decision": "accept", "reason": "", "edits": {}, "base_hash": "713ae385ec38", "at": "2026-11-02T12:15:57", "note": "revised per review sheet: Quotes now include the definition and its exclusion."}
+{"id": "def12", "decision": "accept", "reason": "", "edits": {}, "base_hash": "6e901861bf57", "at": "2026-11-02T12:15:57", "note": "revised per review sheet: Answer made conditional; added home-based, self-employed and unorganised-sector definitions."}
+{"id": "changed01", "decision": "accept", "reason": "", "edits": {}, "base_hash": "0f780c0537ce", "at": "2026-11-02T12:15:57", "note": "revised per review sheet: Added the 'streamlines compliance ... safeguarding workers' quote."}
+{"id": "changed09", "decision": "accept", "reason": "", "edits": {}, "base_hash": "01ac5ef918ef", "at": "2026-11-02T12:15:57", "note": "revised per review sheet: Removed the unsupported 'other obligations can still apply' line."}
+{"id": "calc01", "decision": "accept", "reason": "", "edits": {}, "base_hash": "2f147f0f56db", "at": "2026-11-02T12:15:57", "note": "revised per review sheet: Added the per-year rate quote."}
+{"id": "calc02", "decision": "accept", "reason": "", "edits": {}, "base_hash": "22cdfe4c381b", "at": "2026-11-02T12:15:57", "note": "revised per review sheet: Added the ÷26 × 15 formula quote."}
+{"id": "calc03", "decision": "accept", "reason": "", "edits": {}, "base_hash": "49f59d8f4ab4", "at": "2026-11-02T12:15:57", "note": "revised per review sheet: Added the ÷26 × 15 formula quote."}
+{"id": "calc11", "decision": "accept", "reason": "", "edits": {}, "base_hash": "fc450a9cb55e", "at": "2026-11-02T12:15:57", "note": "revised per review sheet: Question now states all working days were worked, so the §27 proportional reduction doesn't apply."}
+{"id": "multi06", "decision": "reject", "reason": "Duplicate of single27 (medical bonus amount and conditions).", "edits": {}, "base_hash": "5079f40a0477", "at": "2026-11-02T12:15:57"}
+{"id": "multi10", "decision": "reject", "reason": "Duplicate of single09 (thirty days' work for bonus eligibility).", "edits": {}, "base_hash": "141ff5f60285", "at": "2026-11-02T12:15:57"}
+{"id": "multi14", "decision": "reject", "reason": "Duplicate of single08 (deduction when ten or more employees are absent together); single08 kept.", "edits": {}, "base_hash": "2c36c44e1f0c", "at": "2026-11-02T12:15:57"}

@@ -37,9 +37,14 @@ class RAGPipeline:
     def answer(self, question: str, filters: dict | None = None) -> Answer:
         t0 = time.perf_counter()
         hits = self.retrieve(question, filters)
-        t1 = time.perf_counter()
+        answer = self.generate(question, hits)
+        answer.timings_ms["retrieve"] = (time.perf_counter() - t0) * 1000 - answer.timings_ms["generate"]
+        return answer
+
+    def generate(self, question: str, hits: list[SearchHit]) -> Answer:
+        """Answer from already-retrieved passages (lets the eval reuse one deeper retrieval)."""
         if self.llm is None:
             raise RuntimeError("no LLM configured; use retrieve() for retrieval only")
+        t0 = time.perf_counter()
         text, model = self.llm.generate(build_prompt(question, hits), system=SYSTEM)
-        t2 = time.perf_counter()
-        return Answer(question, text, hits, model, {"retrieve": (t1 - t0) * 1000, "generate": (t2 - t1) * 1000})
+        return Answer(question, text, hits, model, {"generate": (time.perf_counter() - t0) * 1000})

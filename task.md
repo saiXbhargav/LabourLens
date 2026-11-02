@@ -155,16 +155,41 @@ Estimated total: **~4 weeks at 2–3 hrs/day.** Each phase ends with something t
 - [ ] Freeze it as `evals/golden_set.jsonl`. Don't change it once experiments start.
 - **Done when:** you have a versioned test set that you trust.
 
-### Phase 4 — Evaluation harness + baseline numbers (Day 11–12)
-- [ ] **Retrieval:** Recall@5 and MRR, i.e. did the right section show up, and how high.
-- [ ] **Answers:**
-  - correctness against the reference (LLM-as-judge, spot-checked by you on ~30 answers)
-  - **citation accuracy**: does each cited section really support the claim
-  - **refusal accuracy** on the out-of-scope questions
-- [ ] **Calculations:** exact match within ₹1.
-- [ ] **Also log:** latency and cost per question.
-- [ ] One command, `python -m evals.run --config baseline.yaml`, writes results to CSV and W&B.
-- **Done when:** the baseline row of your results table exists.
+### Phase 4 — Evaluation harness + baseline numbers (Day 11–12) ✅ harness + baseline done 2026-11-01
+- [x] **Retrieval:** Recall@5 and MRR, i.e. did the right section show up, and how high.
+  - Section-level Hit@1/3/5/10, Recall@5 (share of gold sections found; matters for multi-section questions) and MRR@10, over a retrieval depth of 10.
+- [x] **Answers:**
+  - correctness against the reference: LLM judge (Gemini Flash), scored 0/1/2, given the reference answer and the gold quotes
+  - **faithfulness**: every claim supported by the passages the system was given
+  - **citation check**: does at least one cited passage contain a gold section ("cites gold")
+  - **refusal accuracy** on the out-of-scope questions; **over-refusal** = saying "not found" on answerable questions
+- [x] **Calculations:** exact match within ₹1. Understands "1,50,000" and "1.5 lakh".
+- [x] **Also log:** latency (p50/p95) and token counts. Every LLM call is cached on disk, so re-runs are free.
+- [x] One command writes per-question results, a summary and the results table:
+  `python -m evals.run --config evals/configs/baseline.yaml` → `evals/results/RESULTS.md`
+  - W&B is not wired in yet. It's optional and needs a `WANDB_API_KEY`.
+- [x] **Judge spot-check** (`python -m evals.spotcheck baseline`, done 2026-11-02): 30 baseline answers, graded blind by a human, then compared with the judge.
+  - Answerable (23): exact agreement 83%, agreement on "fully correct" 87%, **Cohen's κ = 0.74** (substantial).
+  - Out-of-scope (7): 100% agreement.
+  - Disagreements (4) go both ways. The judge was stricter on calc05 and single02 and more lenient on changed01 and def12. No systematic bias, so the judge-based accuracy numbers can be trusted.
+- **Done when:** the baseline row of your results table exists. ✅
+
+**Baseline (final golden set `5f25eb89`, 117 questions):**
+
+The golden set had a final full pass (2026-11-02): all 120 questions were reviewed in a sheet showing reference vs system answers. 20 were revised so every claim in the reference answer has a verbatim quote, and 3 duplicates were rejected.
+
+| Hit@1 | Hit@5 | Recall@5 | MRR@10 | Accuracy | Faithful | Calc | Refusal | Over-refusal | Cites gold | Gen p50 |
+|---|---|---|---|---|---|---|---|---|---|---|
+| 44% | 69% | 66% | 0.56 | 55% | 95% | 19% | 100% | 29% | 63% | 1.7 s |
+
+By type (Hit@5 / accuracy): rules 88% / 77%; multi-section 100% / 73%; everyday wording 56% / 48%; definitions 53% / 53%; calculations 71% / 18%; what-changed 25% / 62%.
+
+**What the baseline tells us (Phase 5–7 targets):**
+1. **Retrieval is the bottleneck for informal questions.** Hit@5 is 92% for precise wording but 56% for everyday wording and 54% for definitions → try section-aware chunking, hybrid BM25, query rewriting, and attaching definitions.
+2. **Over-refusal (29%).** The strict prompt plus retrieval misses make the model say "not found" on answerable questions. Refusal on out-of-scope questions is 100%, so it is too cautious, not too loose.
+3. **Calculations (19%).** Even when the ÷26×15 formula *is* in the passages, Flash-Lite won't do the arithmetic → Phase 6 calculator tools.
+4. **Section-level hits can overstate retrieval.** calc01 "hit" SS Code §53, but not the chunk holding the formula. Smaller, structure-aware chunks should help here too.
+5. **Dataset caveat:** "what changed" questions have only the PIB page as gold. Some were answered correctly from the codes themselves (counted as retrieval misses).
 
 ### Phase 5 — Improve retrieval, one change at a time (Day 13–17)
 Run the full evaluation after each change and keep one row per experiment:

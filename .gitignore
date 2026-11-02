@@ -12,6 +12,8 @@ __pycache__/
 backend/data/raw/
 backend/data/processed/
 backend/data/qdrant/
+backend/data/cache/
+backend/evals/reviews.before_audit.jsonl
 
 # Experiment tracking / caches
 wandb/
@@ -26,3 +28,4 @@ node_modules/
 Thumbs.db
 .vscode/
 .idea/
+backend/evals/review_sheet.md

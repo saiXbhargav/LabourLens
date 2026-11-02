@@ -3,12 +3,14 @@
 Files (evals/):
     handwritten.jsonl   calculation and out-of-scope questions written by hand
     drafts.jsonl        LLM-drafted questions (python -m evals.draft_questions)
-    reviews.jsonl       review decisions, one per question id (python -m evals.review)
+    reviews.jsonl       review decisions, one per question id (python -m evals.review); each decision
+                        records the item_hash it was made on and lapses if the question changes
     golden_set.jsonl    the frozen test set: accepted questions with edits applied
 """
 
 from __future__ import annotations
 
+import hashlib
 import json
 import re
 from pathlib import Path
@@ -40,6 +42,20 @@ def load_sections() -> dict[str, dict]:
     return {r["id"]: r for r in read_jsonl(PROCESSED / "sections.jsonl")}
 
 
+def item_quotes(item: dict) -> list[str]:
+    """Supporting quotes: one per important claim in the answer ("quotes"), or a single "quote"."""
+    if item.get("quotes"):
+        return list(item["quotes"])
+    return [item["quote"]] if item.get("quote") else []
+
+
+def item_hash(item: dict) -> str:
+    """Fingerprint of the parts a reviewer judges; a review decision is only valid for this version."""
+    content = {k: item.get(k) for k in ("question", "answer", "gold_sections", "expected_value", "answerable")}
+    content["quotes"] = item_quotes(item)
+    return hashlib.sha1(json.dumps(content, sort_keys=True, ensure_ascii=False).encode()).hexdigest()[:12]
+
+
 def normalize(text: str) -> str:
     """Compare quotes loosely: case, whitespace, quote styles and dashes may differ."""
     text = text.lower().replace("’", "'").replace("‘", "'").replace("“", '"').replace("”", '"')
@@ -62,10 +78,12 @@ def validate(item: dict, sections: dict[str, dict]) -> list[str]:
         problems.append(f"unknown gold sections {missing}")
     if item["answerable"] and not item["gold_sections"]:
         problems.append("answerable question without gold sections")
-    if quote := item.get("quote"):
+    if quotes := item_quotes(item):
         gold_text = " ".join(normalize(sections[s]["text"]) for s in item["gold_sections"] if s in sections)
-        if normalize(quote) not in gold_text:
-            problems.append("quote not found verbatim in the gold sections")
+        for i, quote in enumerate(quotes, 1):
+            if normalize(quote) not in gold_text:
+                label = "quote" if len(quotes) == 1 else f"quote {i}"
+                problems.append(f"{label} not found verbatim in the gold sections")
     elif item["answerable"]:
         problems.append("answerable question without a supporting quote")
     if item["answerable"] and re.search(r"\b(section|sub-section|rule|clause)\s+\d", item["question"], re.I):
